@@ -53,7 +53,7 @@ public interface CircuitNode {
 	 * from this node.
 	 */
 	void waitForSendWindow();
- 
+
 	/**
 	 * If the packaging window for this node is open (ie: greater than 0) this method
 	 * decrements the packaging window by 1 and returns immediately, otherwise it will

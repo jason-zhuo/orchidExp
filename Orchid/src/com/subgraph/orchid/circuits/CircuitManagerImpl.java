@@ -99,8 +99,8 @@ public class CircuitManagerImpl implements CircuitManager, DashboardRenderable {
 //		Router r=null;
 //		circuitCreationTask.setFirstRouter(r);
 //		executor.execute(circuitCreationTask);
-//		circuitCreationTask.setFirstRouter(r);
-//		executor.execute(circuitCreationTask);
+		//circuitCreationTask.setFirstRouter(r);
+		//executor.execute(circuitCreationTask);
 		//scheduledExecutor.scheduleAtFixedRate(circuitCreationTask, 0, 10000, TimeUnit.MILLISECONDS);
 		scheduledExecutor.scheduleAtFixedRate(circuitCreationTask, 0, 1000, TimeUnit.MILLISECONDS);
 	}

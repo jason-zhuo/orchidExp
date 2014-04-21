@@ -42,7 +42,9 @@ public class CircuitCreationTask implements Runnable {
 	private final CircuitBuildHandler internalBuildHandler;
 	// To avoid obnoxiously printing a warning every second
 	private int notEnoughDirectoryInformationWarningCounter = 0;
-
+	// zhuo add: build one internal cuicuit()
+	Object lock = new Object();
+	static int circuitcount = 0;
 	private final CircuitPredictor predictor;
 
 	private final AtomicLong lastNewCircuit;
@@ -70,12 +72,7 @@ public class CircuitCreationTask implements Runnable {
 
 	public void run() {
 
-		//Feng:change
-		//System.out.println("Feng:Circuit Create:"+cnt);
-//		cnt++;
-//		if (cnt>3) {
-//			//return;
-//		}
+		//Feng:change zhuo: suggest better not to change here
 
 		expireOldCircuits();//¹Ø±Õ¾Écircuit
 		assignPendingStreamsToActiveCircuits();
@@ -172,12 +169,24 @@ public class CircuitCreationTask implements Runnable {
 		buildCircuitToHandleExitTargets(exitTargets);
 	}
 
+// zhuo: major modification 
 	private void maybeBuildInternalCircuit() {
-		final int needed = circuitManager.getNeededCleanCircuitCount(predictor.isInternalPredicted());
-
-		if(needed > 0) {
-			launchBuildTaskForInternalCircuit();
+//		final int needed = circuitManager.getNeededCleanCircuitCount(predictor.isInternalPredicted());		
+//		if(needed > 0) {
+//			launchBuildTaskForInternalCircuit();
+//		}
+		synchronized (lock) {
+			circuitcount++;
+			if(circuitcount>2)
+			{
+				return;
+			}else
+			{
+				launchBuildTaskForInternalCircuit();
+			}
+			lock.notify();
 		}
+		
 	}
 
 	Router firstRouter=null;//Feng add

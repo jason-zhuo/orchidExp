@@ -34,7 +34,7 @@ public class TapCircuitExtender {
 
 	public void sycronizdedSender(RelayCell cell)
 	{
-		String  msg = "Extending to " + router.getNickname()+" "+router.getAddress()+" ";
+		String  msg = "Extending to " + router.getNickname()+" "+router.getAddress();
 		synchronized (CircuitIO.writeFilelock){			
 			WriteToFile(msg);
 			extender.sendRelayCell(cell);
@@ -48,6 +48,7 @@ public class TapCircuitExtender {
 					e.printStackTrace();
 				}
 			}
+			WriteToFile("\n");
 			
 		}
 		

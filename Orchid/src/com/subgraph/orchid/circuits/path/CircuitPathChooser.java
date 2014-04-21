@@ -131,6 +131,7 @@ public class CircuitPathChooser {
 		}
 		ExtendRouterList.add(entryRouter);	
 		BuildExtendtedRouterList(excluded);
+		//zhuo:  we should replace the entryRouter to the one we want to scan here
 		return Arrays.asList(entryRouter, middleRouter, finalRouter);
 	}
 
