@@ -69,9 +69,9 @@ public class TapCircuitExtender {
 		logger.fine("Extending to " + router.getNickname() + " with TAP");
 		final RelayCell cell = createRelayExtendCell();
 		
-		sycronizdedSender(cell);//zhuo : 这里需要线程同步
+		//sycronizdedSender(cell);//zhuo : 这里需要线程同步
 		
-		//extender.sendRelayCell(cell);
+		extender.sendRelayCell(cell);
 		final RelayCell response = extender.receiveRelayResponse(
 				RelayCell.RELAY_EXTENDED, router);
 		if (response == null) {

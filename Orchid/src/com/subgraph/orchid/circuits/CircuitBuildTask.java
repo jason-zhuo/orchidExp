@@ -68,7 +68,7 @@ public class CircuitBuildTask implements Runnable {
 	public void run() {
 		//cnt++;
 		//System.out.println("Feng:Circuit Build:"+cnt);
-		Router firstRouter = null;
+		firstRouter = null;
 		try {
 			circuit.notifyCircuitBuildStart();//通告：开始链路建立
 			creationRequest.choosePath();//对链路请求中的路径进行路径选择
