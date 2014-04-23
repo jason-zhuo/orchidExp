@@ -157,10 +157,10 @@ public class CircuitBuildTask implements Runnable {
 			
 			if(extendedNode==null){
 				//Feng:handle the failed node
-				System.out.println("Feng:extend failed!");
+				//System.out.println("Feng:extend failed!");
 			}else {
 				//Feng:handle the success node
-				System.out.println("Feng:extend success!");
+				//System.out.println("Feng:extend success!");
 				creationRequest.nodeAdded(extendedNode);
 			}
 		}

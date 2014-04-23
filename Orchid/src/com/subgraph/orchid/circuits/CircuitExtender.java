@@ -144,10 +144,22 @@ public class CircuitExtender {
 		} else if(command != expectedCommand) {
 			final String expected = RelayCellImpl.commandToDescription(expectedCommand);
 			final String received = RelayCellImpl.commandToDescription(command);
-			String msg = "Received incorrect extend response from: "+extendTarget.getNickname()+" expecting "+ expected + " but received "+ received +"\n";		
+			String msg = "Received incorrect extend response from: "+extendTarget.getNickname()+" expecting "+ expected + " but received "+ received +"\n";	
+			synchronized (CircuitIO.writeFilelock) {
+				CircuitIO.isReceived=true;
+				TapCircuitExtender.WriteToFile(msg);
+				CircuitIO.writeFilelock.notifyAll();				
+			}
 			return null;
 			//throw new TorException("Received incorrect extend response, expecting "+ expected + " but received "+ received);
 		} else {
+			String msg = "Received Relay extended response from: "+extendTarget.getNickname()+" "+extendTarget.getAddress()+"\n";
+			System.out.println(msg);
+			synchronized (CircuitIO.writeFilelock) {
+				CircuitIO.isReceived=true;
+				TapCircuitExtender.WriteToFile(msg);
+				CircuitIO.writeFilelock.notifyAll();				
+			}
 			return cell;
 		}
 	}

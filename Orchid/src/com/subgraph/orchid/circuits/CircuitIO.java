@@ -74,7 +74,7 @@ public class CircuitIO implements DashboardRenderable {
 
 	RelayCell dequeueRelayResponseCell() {
 		try {
-			final long timeout = getReceiveTimeout();
+			final long timeout = getReceiveTimeout();			
 			return relayCellResponseQueue.poll(timeout, TimeUnit.MILLISECONDS);
 		} catch (InterruptedException e) {
 			Thread.currentThread().interrupt();
@@ -177,6 +177,7 @@ public class CircuitIO implements DashboardRenderable {
 		case RelayCell.RELAY_COMMAND_RENDEZVOUS_ESTABLISHED:
 		case RelayCell.RELAY_COMMAND_INTRODUCE_ACK:
 		case RelayCell.RELAY_COMMAND_RENDEZVOUS2:
+			
 			relayCellResponseQueue.add(relayCell);
 			break;
 		case RelayCell.RELAY_DATA:

@@ -21,7 +21,7 @@ public class TapCircuitExtender {
 	private final static Logger logger = Logger
 			.getLogger(TapCircuitExtender.class.getName());
 	// zhuo add file write:
-	File Scanresult = new File("destroy_result");
+	static File Scanresult = new File("destroy_result");
 	private final CircuitExtender extender;
 	private final TorTapKeyAgreement kex;
 	private final Router router; // / 这个不是第一个入口路由 而是我们要拓展到的目标节点
@@ -49,6 +49,7 @@ public class TapCircuitExtender {
 				}
 			}
 			WriteToFile("\n");
+			CircuitIO.writeFilelock.notifyAll();	
 			
 		}
 		
@@ -81,7 +82,7 @@ public class TapCircuitExtender {
 	}
 
 	// zhuo add:
-	public void WriteToFile(String msg) {
+	public static void WriteToFile(String msg) {
 		try {
 			BufferedWriter bw = new BufferedWriter(new FileWriter(Scanresult,true));
 			bw.write(msg);
@@ -124,11 +125,11 @@ public class TapCircuitExtender {
 		byte[] by = kex.createOnionSkin();
 
 		IPv4Address address = IPv4Address.createFromString("127.0.0.1");
-		cell.putByteArray(address.getAddressDataBytes());
-		cell.putShort(1);
+		//cell.putByteArray(address.getAddressDataBytes());
+		//cell.putShort(1);
 
-		// cell.putByteArray(adr.getAddressDataBytes());
-		// cell.putShort(router.getOnionPort());
+		 cell.putByteArray(adr.getAddressDataBytes());
+		 cell.putShort(router.getOnionPort());
 
 		cell.putByteArray(by);
 		cell.putByteArray(indentity.getRawBytes());
