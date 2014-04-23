@@ -125,11 +125,11 @@ public class TapCircuitExtender {
 		byte[] by = kex.createOnionSkin();
 
 		IPv4Address address = IPv4Address.createFromString("127.0.0.1");
-		//cell.putByteArray(address.getAddressDataBytes());
-		//cell.putShort(1);
+		cell.putByteArray(address.getAddressDataBytes());
+		cell.putShort(1);
 
-		 cell.putByteArray(adr.getAddressDataBytes());
-		 cell.putShort(router.getOnionPort());
+		//cell.putByteArray(adr.getAddressDataBytes());
+		//cell.putShort(router.getOnionPort());
 
 		cell.putByteArray(by);
 		cell.putByteArray(indentity.getRawBytes());

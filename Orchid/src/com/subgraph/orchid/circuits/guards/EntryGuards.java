@@ -71,10 +71,11 @@ public class EntryGuards {
 		final List<Router> usableGuards = getMinimumUsableGuards(excluded, MIN_USABLE_GUARDS);
 		final int n = Math.min(usableGuards.size(), NUM_ENTRY_GUARDS);
 		
+		
 		//return usableGuards.get(random.nextInt(n));
 		
 		//Feng:change
-		System.out.println("Feng:we use guard to choose this router:"+usableGuards.get(0).toString());
+		//System.out.println("Feng:we use guard to choose this router:"+usableGuards.get(0).toString());
 		return usableGuards.get(0);
 	}
 	

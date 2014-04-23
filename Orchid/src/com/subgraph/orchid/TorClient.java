@@ -147,7 +147,7 @@ public class TorClient {
 	}
 
 	public void enableSocksListener() {
-		enableSocksListener(9150);//set port
+		enableSocksListener(9999);//set port
 	}
 	
 	public void enableDashboard() {
