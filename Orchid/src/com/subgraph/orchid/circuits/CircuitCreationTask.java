@@ -177,7 +177,7 @@ public class CircuitCreationTask implements Runnable {
 //		}
 		synchronized (lock) {
 			circuitcount++;
-			if(circuitcount>2)
+			if(circuitcount>=2)
 			{
 				return;
 			}else

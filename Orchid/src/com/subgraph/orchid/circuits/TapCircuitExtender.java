@@ -42,7 +42,7 @@ public class TapCircuitExtender {
 			{
 				try {
 					CircuitIO.isReceived=false;
-					CircuitIO.writeFilelock.wait(1000);
+					CircuitIO.writeFilelock.wait();
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -54,17 +54,7 @@ public class TapCircuitExtender {
 		}
 		
 	}
-	public void waitUntilReceived() {
-		synchronized (CircuitIO.recievelock) {
-			while(!CircuitIO.isReceived) {
-				try {
-					CircuitIO.recievelock.wait();
-				} catch (InterruptedException e) {
-				}
-			}
-			CircuitIO.isReceived= false;
-		}
-	}
+
 
 	public CircuitNode extendTo() {
 		logger.fine("Extending to " + router.getNickname() + " with TAP");
@@ -121,18 +111,16 @@ public class TapCircuitExtender {
 		final RelayCell cell = extender.createRelayCell(RelayCell.RELAY_EXTEND);
 		IPv4Address adr = router.getAddress();
 		TorPublicKey key = router.getOnionKey();
-		HexDigest indentity = router.getIdentityHash();
-		byte[] by = kex.createOnionSkin();
 
-		IPv4Address address = IPv4Address.createFromString("127.0.0.1");
+		IPv4Address address = IPv4Address.createFromString("184.22.247.83");
 		cell.putByteArray(address.getAddressDataBytes());
 		cell.putShort(1);
 
 		//cell.putByteArray(adr.getAddressDataBytes());
 		//cell.putShort(router.getOnionPort());
 
-		cell.putByteArray(by);
-		cell.putByteArray(indentity.getRawBytes());
+		cell.putByteArray( kex.createOnionSkin());
+		cell.putByteArray(router.getIdentityHash().getRawBytes());
 		return cell;
 	}
 }

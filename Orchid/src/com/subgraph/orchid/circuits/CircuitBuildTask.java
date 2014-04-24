@@ -28,8 +28,6 @@ public class CircuitBuildTask implements Runnable {
 	private final TorInitializationTracker initializationTracker;
 	private final CircuitImpl circuit;
 	private final CircuitExtender extender;
-	List<Router> list;
-	List<Router> list2;
 	private Connection connection = null;
 	
 	static Random random=new Random();
@@ -142,15 +140,14 @@ public class CircuitBuildTask implements Runnable {
 
 	private void buildCircuit(Router firstRouter) throws TorException {
 		notifyInitialization();
-		list = creationRequest.getPath();
 		System.out.println("creating fast to FirstRouter : " + firstRouter.toString());
 		final CircuitNode firstNode = extender.createFastTo(firstRouter);//建立链路//链路节点包含路由信息
 		creationRequest.nodeAdded(firstNode);//插入链路节点
 		
 		
 		//链路扩展extend to：默认数目为5（需修改）（已经可以通过选路函数修改）
-		//for(int i = 1; i < creationRequest.getPathLength(); i++) {
-		for(int i = 1; i < 2; i++) {
+		for(int i = 1; i < creationRequest.getPathLength(); i++) {
+		//for(int i = 1; i < 2; i++) {
 			Router node = creationRequest.getPathElement(i);//获取新路由节点			
 			//扩展链路到新的路由节点
 			System.out.println("Feng:"+"CircuitBuilder:"+firstRouter.toString()+":"+i+":"+randomInt+":extending to :"+node.toString());
