@@ -105,7 +105,26 @@ public class CircuitPathChooser {
 			 }
 		 }
 		 return null;
-	 }	/** added
+	 }
+	 /**
+	  * Get the router by IP
+	  * @author zzl
+	  */
+	 public Router GetRouterByIP(String IP)
+	 {
+		 Router target= null;
+		 Iterator<Router> iter = ExtendRouterList.iterator();
+		 while(iter.hasNext())
+		 {
+			 target =iter.next();
+			 if(target.getAddress().toString().equalsIgnoreCase(IP))
+			 {
+				 return target;
+			 }
+		 }
+		 return null;
+	 }
+	 /** added
 	 * @author zzl 
 	 * @return the RouterList to be Extended
 	 */
@@ -119,20 +138,24 @@ public class CircuitPathChooser {
 		final Set<Router> excluded = new HashSet<Router>();
 		excludeChosenRouterAndRelated(finalRouter, excluded);//exclude final	
 		
-		final Router middleRouter = chooseMiddleNode(excluded);
+		Router middleRouter = chooseMiddleNode(excluded);
 		if(middleRouter == null) {
 			throw new PathSelectionFailedException("Failed to select suitable middle node");
 		}
 		excludeChosenRouterAndRelated(middleRouter, excluded);//exclude chosen one	
 		
-		final Router entryRouter = chooseEntryNode(excluded);
+		Router entryRouter = chooseEntryNode(excluded);
 		if(entryRouter == null) {
 			throw new PathSelectionFailedException("Failed to select suitable entry node");
 		}
-		ExtendRouterList.add(entryRouter);	
+		ExtendRouterList.add(entryRouter);
 		BuildExtendtedRouterList(excluded);
 		
-		//zhuo:  we should replace the entryRouter to the one we want to scan here
+		//scan target
+		entryRouter = GetRouterByIP("37.187.180.4");
+		//extend target
+		middleRouter =GetRouterByIP("212.83.154.130");
+		//zhuo:  we should replace the entryRouter to the one we want to scan here	
 		return Arrays.asList(entryRouter, middleRouter, finalRouter);
 	}
 
