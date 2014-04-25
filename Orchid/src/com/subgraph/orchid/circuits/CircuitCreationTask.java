@@ -176,11 +176,11 @@ public class CircuitCreationTask implements Runnable {
 //			launchBuildTaskForInternalCircuit();
 //		}
 		synchronized (lock) {
-			circuitcount++;
-			if(circuitcount>=2)
-			{
-				return;
-			}else
+//			circuitcount++;
+//			if(circuitcount>=2)
+//			{
+//				return;
+//			}else
 			{
 				launchBuildTaskForInternalCircuit();
 			}

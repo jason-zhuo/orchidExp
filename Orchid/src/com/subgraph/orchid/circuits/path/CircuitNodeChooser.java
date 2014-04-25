@@ -25,10 +25,12 @@ public class CircuitNodeChooser {
 
 	private final TorConfigNodeFilter configNodeFilter;
 
+	private static List<Router> candidates;
 
 	public CircuitNodeChooser(TorConfig config, Directory directory) {
 		this.directory = directory;
 		this.configNodeFilter = new TorConfigNodeFilter(config);
+		candidates=null;
 	}
 
 	/**
@@ -69,14 +71,19 @@ public class CircuitNodeChooser {
 	}
 
 	/**
-	 * 
+	 * Feng:modify20140425
 	 * @param rule
 	 * @param routerFilter
 	 * @return The chosen router or 'null' if no suitable router is available.
 	 */
 	public Router chooseRandomNode(WeightRule rule, RouterFilter routerFilter) {
-		final List<Router> candidates = getFilteredRouters(routerFilter, true);
+		//Feng:modify20140425//add
+		if (candidates==null) {
+			candidates = getFilteredRouters(routerFilter, true);
+		}
+		//final List<Router> candidates = getFilteredRouters(routerFilter, true);//origin
 		final Router choice = chooseByBandwidth(candidates, rule);
+		candidates.remove(choice);//add//remove the router if used		
 		if(choice == null) {
 			// try again with more permissive flags
 			return null;
