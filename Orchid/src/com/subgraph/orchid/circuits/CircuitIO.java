@@ -74,7 +74,7 @@ public class CircuitIO implements DashboardRenderable {
 
 	RelayCell dequeueRelayResponseCell() {
 		try {
-			final long timeout = getReceiveTimeout();			
+			final long timeout = getReceiveTimeout();
 			return relayCellResponseQueue.poll(timeout, TimeUnit.MILLISECONDS);
 		} catch (InterruptedException e) {
 			Thread.currentThread().interrupt();

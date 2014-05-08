@@ -129,6 +129,7 @@ public class CircuitExtender {
 	 */
 	public RelayCell receiveRelayResponse(int expectedCommand, Router extendTarget) {
 		final RelayCell cell = circuit.receiveRelayCell();
+		System.out.println("Feng:find the exception!");
 		if(cell == null) {
 			throw new TorException("Timeout building circuit");
 		}

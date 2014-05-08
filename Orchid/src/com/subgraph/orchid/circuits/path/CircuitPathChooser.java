@@ -152,9 +152,9 @@ public class CircuitPathChooser {
 		BuildExtendtedRouterList(excluded);
 		
 		//scan target
-		entryRouter = GetRouterByIP("37.187.180.4");
+		//entryRouter = GetRouterByIP("37.187.180.4");
 		//extend target
-		middleRouter =GetRouterByIP("212.83.154.130");
+		//middleRouter =GetRouterByIP("212.83.154.130");
 		//zhuo:  we should replace the entryRouter to the one we want to scan here	
 		return Arrays.asList(entryRouter, middleRouter, finalRouter);
 	}
